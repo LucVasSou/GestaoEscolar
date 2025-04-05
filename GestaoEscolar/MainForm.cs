@@ -12,6 +12,7 @@ namespace GestaoEscolar
 {
     public partial class Mainform: Form
     {
+        StudentClass student = new StudentClass();
         public Mainform()
         {
             InitializeComponent();
@@ -20,7 +21,7 @@ namespace GestaoEscolar
 
         private void Mainform_Load(object sender, EventArgs e)
         {
-
+            label_totalStd.Text = "Total Students: " + student.totalStudent();
         }
 
         private void customizedDesign()
@@ -58,6 +59,7 @@ namespace GestaoEscolar
         #region studentsSubmenu 
         private void button_registration_Click(object sender, EventArgs e)
         {
+            openChildForm(new RegisterForm());
             //...
             //..Your code
             //...
@@ -66,6 +68,7 @@ namespace GestaoEscolar
 
         private void button_manageStd_Click(object sender, EventArgs e)
         {
+            openChildForm(new ManageStudentForm());
             //...
             //..Your code
             //...
@@ -147,5 +150,33 @@ namespace GestaoEscolar
             hideSubmenu();
         }
         #endregion studentsSubmenu
+
+        //to show register form in mainform
+        private Form activeForm = null;
+        private void openChildForm(Form childForm)
+        {
+            if (activeForm != null)
+                activeForm.Close();
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            panel_main.Controls.Add(childForm);
+            panel_main.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+        }
+
+        private void button_dashboard_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_exit_Click(object sender, EventArgs e)
+        {
+            if (activeForm != null)
+                activeForm.Close();
+            panel_main.Controls.Add(panel_cover);
+        }
     }
 }

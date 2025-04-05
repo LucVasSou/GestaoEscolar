@@ -47,5 +47,33 @@ namespace GestaoEscolar
             adapter.Fill(table);
             return table;
         }
+
+        //Create a function to execute the count query (total, male, female)
+        public string exeCount(string query)
+        {
+            MySqlCommand command = new MySqlCommand(query, connect.getConnection);
+            connect.openConnect();
+            string count = command.ExecuteScalar().ToString();
+            connect.cloaseConnect();
+            return count;
+        }
+
+        //To get the total student
+        public string totalStudent()
+        {
+            return exeCount("SELECT COUNT(*) FROM student");
+        }
+
+        //To get the total male student
+        public string maleStudent()
+        {
+            return exeCount("SELECT COUNT(*) FROM student WHERE `Gender`='Male'");
+        }
+
+        //To get the total female student
+        public string femaleStudent()
+        {
+            return exeCount("SELECT COUNT(*) FROM student WHERE `Gender`='Female'");
+        }
     }
 }

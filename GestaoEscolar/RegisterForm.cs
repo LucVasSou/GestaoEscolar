@@ -19,11 +19,6 @@ namespace GestaoEscolar
             InitializeComponent();
         }
 
-        private void RegisterForm_Load(object sender, EventArgs e)
-        {
-            showTable();
-        }
-
         private void button_upload_Click(object sender, EventArgs e)
         {
             // browse photo from your computer
@@ -97,6 +92,12 @@ namespace GestaoEscolar
             textBox_Lname.Clear();
             textBox_phone.Clear();
             textBox_address.Clear();
+            pictureBox_student.Image = null;
+        }
+
+        private void RegisterForm_Load(object sender, EventArgs e)
+        {
+            showTable();
         }
 
         // To show student list in Datagrid
@@ -105,7 +106,7 @@ namespace GestaoEscolar
             DataGridView_student.DataSource = student.getStudentlist();
             DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
             imageColumn = (DataGridViewImageColumn)DataGridView_student.Columns[7];
-            imageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch;
+            imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
         }
     }
 }
